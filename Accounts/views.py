@@ -1,11 +1,12 @@
 import requests
 import json
+import os
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from .utils import *
 
-POCKETBASE_URL = 'https://meals-on-a-budget.pockethost.io'
+POCKETBASE_URL = os.getenv('POCKETBASE_URL')
 
 
 @require_http_methods(['POST'])
@@ -99,7 +100,7 @@ def logout(request):
     # Clear the PB auth token and user ID from the session
     request.session.pop('pb_user_id', None)
     request.session.pop('pb_auth_token', None)
-    return JsonResponse({"message": "Logout successful"}, status=200)
+    return JsonResponse({"status": 200, "message": "Logout successful"}, status=200)
 
 
 @require_http_methods(['PATCH'])
@@ -123,7 +124,6 @@ def updateAccount(request):
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
 
     user_id = request.session.get('pb_user_id')
-    print("user_id = ", user_id)
     requestURL = f'{POCKETBASE_URL}/api/collections/users/records/{user_id}'
     headers = {
         "Authorization": f"Bearer {pb_auth_token}",
