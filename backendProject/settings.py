@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Accounts.apps.AccountsConfig',
     'Discover.apps.DiscoverConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+# add your client localhost port number
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
 ]
 
 ROOT_URLCONF = 'backendProject.urls'
