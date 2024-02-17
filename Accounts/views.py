@@ -33,6 +33,7 @@ def register(request):
         # Add more fields as needed
     }
     response = requests.post(requestURL, json=userData)
+    print(response.text)
     return JsonResponse({
         "status": response.status_code,
         "data": response.json() if response.status_code == 200 else {"error": response.text}
