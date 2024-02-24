@@ -33,11 +33,16 @@ def register(request):
         # Add more fields as needed
     }
     response = requests.post(requestURL, json=userData)
-    print(response.text)
-    return JsonResponse({
-        "status": response.status_code,
-        "data": response.json() if response.status_code == 200 else {"error": response.text}
-    }, status=response.status_code)
+    response_dict = {"status": response.status_code}
+    if (response.status_code == 200):
+        response_dict["data"] = response.json()
+    else:
+        response_dict["error"] = response.text
+    return JsonResponse(response_dict, status=response.status_code)
+    # return JsonResponse({
+    #     "status": response.status_code,
+    #     "data": response.json() if response.status_code == 200 else {"error": response.text}
+    # }, status=response.status_code)
 
 
 @require_http_methods(['POST'])
@@ -84,7 +89,8 @@ def login(request):
     else:
         responseData = {
             "status": response.status_code,
-            "data": {"error": "Invalid credentials"},
+            "message": "Invalid credentials",
+            # "data": {"error": "Invalid credentials"},
         }
     return JsonResponse(responseData, status=response.status_code)
 
