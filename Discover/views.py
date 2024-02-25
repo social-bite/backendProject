@@ -36,13 +36,13 @@ def getRestaurants(request):
         processedRestaurantData = []
         for restaurant in data['items']:
             processedRestaurantData.append({
-                "restaurant_id": restaurant['id'],
-                "restaurant_name": restaurant['name'],
-                "restaurant_address": restaurant['address'],
-                "restaurant_open_time": restaurant['open_time'],
-                "restaurant_close_time": restaurant['close_time'],
-                "restaurant_min_price": restaurant['min_price'],
-                "restaurant_max_price": restaurant['max_price']
+                "id": restaurant['id'],
+                "name": restaurant['name'],
+                "address": restaurant['address'],
+                "open_time": restaurant['open_time'],
+                "close_time": restaurant['close_time'],
+                "min_price": restaurant['min_price'],
+                "max_price": restaurant['max_price']
             })
         return JsonResponse({
             "status": response.status_code,
@@ -86,10 +86,10 @@ def getRestaurantMenu(request, restaurant_id):
 
         for itemDict in data['items']:
             processedMenuItem = {
-                "menu_item_id": itemDict['id'],
-                "menu_item_name": itemDict['name'],
-                "menu_item_price": itemDict['price'],
-                "menu_item_description": itemDict['description'],
+                "id": itemDict['id'],
+                "name": itemDict['name'],
+                "price": itemDict['price'],
+                "description": itemDict['description'],
                 "created": itemDict['created'],
                 "updated": itemDict['updated']
             }
